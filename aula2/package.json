@@ -8,7 +8,7 @@
     "migrate": "ts-node ./node_modules/knex/bin/cli.js migrate:latest --knexfile knexfile.ts",
     "migrate:make": "ts-node ./node_modules/knex/bin/cli.js migrate:make --knexfile knexfile.ts",
     "migrate:rollback": "ts-node ./node_modules/knex/bin/cli.js migrate:rollback --knexfile knexfile.ts",
-    "seed": "ts-node ./node_modules/knex/bin/cli.js seed:run --knexfile knexfile.ts"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +16,11 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^22.13.9",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.7"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",

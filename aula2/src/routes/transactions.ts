@@ -7,16 +7,16 @@ import { checkSessionIdExists } from "../middlewares/check-session-id-exists";
 export async function transactionsRoutes(app: FastifyInstance) {
     app.get('/', {
         preHandler: [checkSessionIdExists]
-    }, async (request) => {
+    }, async (request,reply) => {
         const { sessionId } = request.cookies;
 
         const transactions = await knex('transactions').where('session_id', sessionId).select('*');
-        return { transactions }
+        return reply.status(200).send({ transactions });
     })
 
     app.get('/:id', {
         preHandler: [checkSessionIdExists]
-    }, async (request) => {
+    }, async (request,reply) => {
         const getTransactionParamsSchema = z.object({
             id: z.string().uuid(),
         })
@@ -28,7 +28,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
             session_id: sessionId,
             id
         }).first();
-        return { transaction }
+        return reply.status(200).send({ transaction });
     })
 
     app.get('/summary', {
@@ -63,6 +63,6 @@ export async function transactionsRoutes(app: FastifyInstance) {
             session_id: sessionId,
         })
 
-        return reply.status(200).send({message: 'Transação realizada com sucesso'});
+        return reply.status(201).send({message: 'Transação realizada com sucesso'});
     })
 }
